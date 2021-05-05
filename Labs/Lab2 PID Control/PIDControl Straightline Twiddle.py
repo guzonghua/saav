@@ -124,6 +124,7 @@ def run(robot, params, n=100, speed=1.0):
     x_trajectory = []
     y_trajectory = []
     err = 0
+    # TODO: your code here
     prev_cte = robot.y
     int_cte = 0
     for i in range(2 * n):
@@ -142,6 +143,7 @@ def run(robot, params, n=100, speed=1.0):
 
 # Make this tolerance bigger if you are timing out!
 def twiddle(tol=0.2): 
+    # TODO: Add code here
     # Don't forget to call `make_robot` before you call `run`!
     p = [0.0, 0.0, 0.0]
     dp = [1.0, 1.0, 1.0]
@@ -172,3 +174,13 @@ def twiddle(tol=0.2):
                     dp[i] *= 0.9
         it += 1
     return p, best_err
+    
+params, err = twiddle()
+print("Final twiddle error = {}".format(err))
+robot = make_robot()
+x_trajectory, y_trajectory, err = run(robot, params)
+n = len(x_trajectory)
+
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))
+ax1.plot(x_trajectory, y_trajectory, 'g', label='Twiddle PID controller')
+ax1.plot(x_trajectory, np.zeros(n), 'r', label='reference')
